@@ -1,0 +1,30 @@
+.send-note-container{
+    height: 40vh;
+    width: 40vw;
+    margin-top: 40px;
+}
+
+.username-arae{
+    border-radius: 5px;
+    margin-left: 5px;
+    height: 20px;
+    border: none;
+}
+
+.username-arae::placeholder{
+    padding-left: 20px;
+}
+
+.description-area{
+    margin-top: 10px;
+    border-radius: 10px;
+    border: node;
+}
+
+.title-area{
+    margin-top: 10px;
+    border-radius: 5px;
+    margin-left: 5px;
+    height: 20px;
+    border: none;
+}

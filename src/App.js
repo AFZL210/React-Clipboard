@@ -1,52 +1,42 @@
 import './App.css';
-import { React, useState, useEffect } from 'react';
-import Navbar from './components/Navbar/Navbar';
-import Content from './components/Content/Content';
-import Button from './components/Button/Button';
+import {React, useState, useEffect} from 'react'
+import Clipboards from './components/Clipboards';
 
 function App() {
 
-  const [clipboard,setClipboard] = useState([])
+  const [clipboards,setClipboards] = useState([])
 
   useEffect(() => {
 
     const getData = async () => {
-      const clips = await fetchClip()
-      setClipboard(clips)
+      const dataFromServer = await getClips()
+      setClipboards(dataFromServer)
     }
 
     getData()
-
   },[])
 
-  const fetchClip = async () => {
-    const res = await fetch('http://localhost:5000/notes/')
+  const getClips = async () => {
+    const res = await fetch('http://localhost:5000/notes')
     const data = await res.json()
     return data;
   }
 
-  const copyClip = (code) => {
-    console.log(code)
-    alert("Copied!")
-  }
 
-  const addNewNote = async(note) => {
-    const res = await fetch('http://localhost:5000/notes/add',{
-      method:'POST',
-      headers:{
-        'Content-type':'application/json'
-      },
-      body: JSON.stringify(note)
+  const DeleteClip = async (code) => {
+    const res =  await fetch(`http://localhost:5000/notes/delete/${code}`,{
+      method:'DELETE'
     })
 
-    const data =  await res.json()
-    setClipboard([...clipboard,note])
+    setClipboards(clipboards.filter((clipboard) => {
+      return clipboard.code!=code
+    }))
   }
- 
+  
   return (
     <div className="App">
-      <Navbar title="COPY"/>
-      <Content clipboards={clipboard} onCopy={copyClip} onAdd={addNewNote}/>
+      <h2>Admin Pannel</h2>
+      <Clipboards clipboards={clipboards} onDelete={DeleteClip}/>
     </div>
   );
 }

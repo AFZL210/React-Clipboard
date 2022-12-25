@@ -20,7 +20,7 @@ function App() {
   },[])
 
   const fetchClip = async () => {
-    const res = await fetch('http://localhost:5000/notes/')
+    const res = await fetch('https://copy-5cld.onrender.com/notes')
     const data = await res.json()
     return data;
   }
@@ -31,7 +31,7 @@ function App() {
   }
 
   const addNewNote = async(note) => {
-    const res = await fetch('http://localhost:5000/notes/add',{
+    const res = await fetch('https://copy-5cld.onrender.com/notes/add',{
       method:'POST',
       headers:{
         'Content-type':'application/json'
